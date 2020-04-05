@@ -3,6 +3,9 @@
 ## Project setup
 ```
 npm install
+
+Provide the following environmental variables (for instance in the '.env' file in the project root directory):
+	API_KEY_GOOGLE_TRANSLATE
 ```
 
 ### Compiles and hot-reloads for development

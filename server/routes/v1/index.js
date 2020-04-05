@@ -3,21 +3,36 @@ const { translateService } = require("../../services/google-translate");
 
 const router = express.Router();
 
-router.get("/", function(req, res) {
-  const text = "The texts to translate, e.g. Hello, world!";
-  const target = "ru";
-
-  translateService
-    .translateText(text, target)
-    .then(response => {
-      res.json({
-        message: "Greetings from the API v1 endpoint.",
-        response: response
-      });
-    })
-    .catch(error => {
-      console.log(error);
+router.post("/translate", function(req, res) {
+  if (!req.body["target"]) {
+    res.json({
+      status: "NOK",
+      errors: ["'target' parameter is not set"]
     });
+  } else if (!req.body["text"]) {
+    res.json({
+      status: "NOK",
+      errors: ["'text' parameter is not set"]
+    });
+  } else {
+    translateService
+      .translateText(req.body["text"], req.body["target"])
+      .then(response => {
+        res.json({
+          status: "OK",
+          original: req.body["text"],
+          target: req.body["target"],
+          translation: response
+        });
+      })
+      .catch(error => {
+        console.log(error);
+        res.json({
+          status: "NOK",
+          errors: { code: error.code, reason: error.errors }
+        });
+      });
+  }
 });
 
 module.exports = router;

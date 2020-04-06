@@ -9,7 +9,7 @@ export default new Vuex.Store({
     numberOfFailedTranslations: 0,
     numberOfTanslations: 0,
     supportedLanguages: [],
-    targetLanguage: "fr",  // TODO: request translation for multiple targets
+    targetLanguage: "fr", // TODO: request translation for multiple targets
     translatedText: "",
 
     numberOfUploads: 0,
@@ -47,18 +47,18 @@ export default new Vuex.Store({
     },
     async setSupportedLanguages({ commit }) {
       await axios
-          .get("/api/v1/translate/languages")
-          .then(response => response.data)
-          .then(data => {
-            if (data.status === "OK") {
-              commit("UPDATE_SUPPORTED_LANGUAGES", data.languages);
-            } else {
-              console.log(data.errors);
-            }
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        .get("/api/v1/translate/languages")
+        .then(response => response.data)
+        .then(data => {
+          if (data.status === "OK") {
+            commit("UPDATE_SUPPORTED_LANGUAGES", data.languages);
+          } else {
+            console.log(data.errors);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     async translate({ state, commit }, payload) {
       commit("UPDATE_LOADING", true);
@@ -92,7 +92,7 @@ export default new Vuex.Store({
   },
   getters: {
     getTargetText: state => {
-      return state.translatedText || "Translation will go here";  // TODO: translate the placeholder text to requested target
+      return state.translatedText || "Translation will go here"; // TODO: translate the placeholder text to requested target
     }
   }
 });

@@ -9,23 +9,23 @@ const router = express.Router();
  *
  */
 router.get("/languages", function(req, res) {
-  translateService.getLanguages()
-      .then(languages => {
-        res.json({
-          status: "OK",
-          languages: languages
-        });
-      })
-      .catch(error => {
-        // TODO: handle errors generically on higher level
-        console.log(error);
-        res.json({
-          status: "NOK",
-          errors: { code: error.code, reason: error.errors }
-        });
+  translateService
+    .getLanguages()
+    .then(languages => {
+      res.json({
+        status: "OK",
+        languages: languages
       });
+    })
+    .catch(error => {
+      // TODO: handle errors generically on higher level
+      console.log(error);
+      res.json({
+        status: "NOK",
+        errors: { code: error.code, reason: error.errors }
+      });
+    });
 });
-
 
 /**
  *

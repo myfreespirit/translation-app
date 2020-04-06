@@ -12,7 +12,7 @@ import "vue-material/dist/theme/default.css";
 //   MdList,
 //   MdToolbar
 // } from "vue-material/dist/components";
-import VueMaterial from 'vue-material';
+import VueMaterial from "vue-material";
 
 // Vue.use(MdButton);
 // Vue.use(MdCard);
@@ -31,7 +31,7 @@ new Vue({
   render: function(h) {
     return h(App);
   },
-  created(){
-    this.$store.dispatch('setSupportedLanguages');
-  },
+  created() {
+    this.$store.dispatch("setSupportedLanguages");
+  }
 }).$mount("#app");

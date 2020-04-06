@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="md-layout md-gutter md-alignment-center">
+    <div class="md-layout md-gutter md-alignment-top-center">
       <div class="md-layout-item md-large-size-60 md-small-size-90">
         <translation-panel />
       </div>

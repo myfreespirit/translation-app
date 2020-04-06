@@ -3,6 +3,7 @@ const { translateService } = require("../../services/google-translate");
 
 const router = express.Router();
 
+// TODO: description of parameters
 router.post("/translate", function(req, res) {
   if (!req.body["target"]) {
     res.json({

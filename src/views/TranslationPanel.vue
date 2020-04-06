@@ -1,5 +1,6 @@
 <template>
-  <div class="translation-panel">
+  <!-- TODO: visualize loading effect -->
+  <div class="translation-panel align-top">
     <form>
       <md-field>
         <md-textarea
@@ -9,16 +10,21 @@
           md-autogrow
         ></md-textarea>
       </md-field>
-      <md-field>
-        <md-textarea
-          v-model="targetText"
-          placeholder="Translation"
-          md-autogrow
-        ></md-textarea>
-      </md-field>
+
+      <md-card>
+        <md-card-content>
+          {{ getTargetText }}
+        </md-card-content>
+      </md-card>
 
       <md-card-actions>
-        <md-button type="submit" class="md-primary" :disabled="translating"
+        <md-button
+          type="button"
+          class="md-primary"
+          :disabled="loading"
+          @click="
+            translate({ sourceText: sourceText, targetLanguages: ['fr'] })
+          "
           >Translate</md-button
         >
       </md-card-actions>
@@ -27,12 +33,19 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapState } from "vuex";
+
 export default {
   name: "TranslationPanel",
   data: () => ({
-    sourceText: null,
-    targetText: null,
-    translating: false
-  })
+    sourceText: null
+  }),
+  computed: {
+    ...mapState(["loading"]),
+    ...mapGetters(["getTargetText"])
+  },
+  methods: {
+    ...mapActions(["translate"])
+  }
 };
 </script>

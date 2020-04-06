@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import TranslationPanel from "./TranslationPanel";
+import TranslationPanel from "./translation/TranslationPanel";
 import Statistics from "./Statistics";
 
 export default {

@@ -3,7 +3,7 @@ const express = require("express");
 const history = require("connect-history-api-fallback");
 const path = require("path");
 
-// const indexRouter = require("./routes/index");
+const indexRouter = require("./routes/index");
 const apiRouter = require("./routes/api");
 
 const app = express();
@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // TODO: description of API with swagger
-// app.use("/", indexRouter);
+ app.use("/", indexRouter);
 app.use("/api", apiRouter);
 
 module.exports = app;

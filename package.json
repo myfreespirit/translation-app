@@ -10,6 +10,7 @@
     "express-dev": "nodemon --watch server server/index.js",
     "express": "node server/index.js",
     "serve": "vue-cli-service serve",
+    "build": "ng build --build-optimizer --vendor-chunk --aot --prod --named-chunks false --output-hashing all",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

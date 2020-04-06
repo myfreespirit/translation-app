@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "start": "node server/index.js",
     "build-debug": "concurrently \"npm run express-debug\" \"npm run serve\"",
     "build-dev": "concurrently \"npm run express-dev\" \"npm run serve\"",
     "express-debug": "DEBUG=express:* DEBUG_COLORS=true nodemon --watch server server/index.js",
     "express-dev": "nodemon --watch server server/index.js",
     "express": "node server/index.js",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

@@ -10,6 +10,7 @@ export default new Vuex.Store({
     numberOfTanslations: 0,
     supportedLanguages: [],
     targetLanguage: "fr", // TODO: request translation for multiple targets
+    sourceText: "",  // Can be manipulated both by text-area and file-input
     translatedText: "",
 
     numberOfUploads: 0,
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     UPDATE_TARGET_LANGUAGE(state, payload) {
       state.targetLanguage = payload;
     },
+    UPDATE_SOURCE_TEXT(state, payload) {
+      state.sourceText = payload.sourceText;
+    },
     UPDATE_NUMBER_OF_FAILED_REQUESTS(state, payload) {
       state.numberOfFailedTranslations += payload.amount;
     },
@@ -44,6 +48,9 @@ export default new Vuex.Store({
   actions: {
     setTargetLanguage({ commit }, payload) {
       commit("UPDATE_TARGET_LANGUAGE", payload);
+    },
+    setSourceText({ commit }, payload) {
+      commit("UPDATE_SOURCE_TEXT", payload);
     },
     async setSupportedLanguages({ commit }) {
       await axios

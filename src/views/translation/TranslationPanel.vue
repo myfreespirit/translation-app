@@ -13,6 +13,8 @@
         ></md-textarea>
       </md-field>
 
+      <file-selector />
+
       <md-card>
         <md-card-content>
           {{ getTargetText }}
@@ -34,12 +36,14 @@
 
 <script>
 import LanguageSelector from "./LanguageSelector";
+import FileSelector from "./FileSelector";
 import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   name: "TranslationPanel",
   components: {
-    "language-selector": LanguageSelector
+    "language-selector": LanguageSelector,
+    "file-selector": FileSelector
   },
   data: () => ({
     sourceText: null

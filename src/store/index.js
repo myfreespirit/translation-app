@@ -5,20 +5,23 @@ import axios from "axios";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  // TODO: split in modules for modularity
   state: {
     numberOfFailedTranslations: 0,
     numberOfTanslations: 0,
     supportedLanguages: [],
     targetLanguage: "fr", // TODO: request translation for multiple targets
-    sourceText: "",  // Can be manipulated both by text-area and file-input
+    sourceText: "", // Can be manipulated both by text-area and file-input
     translatedText: "",
-
     numberOfUploads: 0,
+    sizeOfLongestSourceText: 0,
+    loading: false,
+
+    // TODO: creative features
     numberOfDownloads: 0,
     numberOfSharedLinks: 0,
-    numberOfActiveLinks: 0,
-    sizeOfLongestSourceText: 0,
-    loading: false
+    numberOfActiveLinks: 0
+    // longestText: ""
     // TODO: add popular languages stats
   },
   mutations: {
@@ -43,15 +46,25 @@ export default new Vuex.Store({
     UPDATE_TRANSLATED_TEXT(state, payload) {
       // TODO: translate all target languages
       state.translatedText = payload.translation;
+    },
+    INCREASE_NUMBER_OF_UPLOADS(state, payload) {
+      state.numberOfUploads += payload;
+    },
+    UPDATE_LONGEST_TEXT(state, text) {
+      state.sizeOfLongestSourceText = text.length;
+      // state.longestText = text
     }
   },
+
   actions: {
     setTargetLanguage({ commit }, payload) {
       commit("UPDATE_TARGET_LANGUAGE", payload);
     },
+
     setSourceText({ commit }, payload) {
       commit("UPDATE_SOURCE_TEXT", payload);
     },
+
     async setSupportedLanguages({ commit }) {
       await axios
         .get("/api/v1/translate/languages")
@@ -67,8 +80,13 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+
     async translate({ state, commit }, payload) {
       commit("UPDATE_LOADING", true);
+
+      if (payload.sourceText.length > state.sizeOfLongestSourceText) {
+        commit("UPDATE_LONGEST_TEXT", payload.sourceText);
+      }
 
       const params = {
         text: payload.sourceText,
@@ -91,15 +109,24 @@ export default new Vuex.Store({
         })
         .catch(error => {
           console.log(error);
-          // TODO: commit error - to visualize at frontend
+          // TODO: commit errors (together with reason) so that we can notify the user
         });
 
       commit("UPDATE_LOADING", false);
+    },
+
+    increaseNumberOfUploads({ commit }) {
+      // TODO: allow to upload multiple files simultaneously
+      commit("INCREASE_NUMBER_OF_UPLOADS", 1);
     }
   },
+
   getters: {
-    getTargetText: state => {
+    getTranslatedText: state => {
       return state.translatedText || "Translation will go here"; // TODO: translate the placeholder text to requested target
+    },
+    getSourceText: state => {
+      return state.sourceText;
     }
   }
 });

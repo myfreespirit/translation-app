@@ -7,6 +7,8 @@
     <md-card>
       <md-card-content>
         <md-list>
+          <!-- TODO: publish the stats at backend so they can be shared between users. -->
+          <!-- TODO: subscribe to backend's events to keep up to date. -->
           <md-list-item>
             {{ numberOfFailedTranslations }} failed translations
           </md-list-item>
@@ -15,15 +17,16 @@
 
           <md-list-item> {{ numberOfUploads }} uploads </md-list-item>
 
+          <!-- TODO: retrieve longest text in App.vue's created() method -->
+          <md-list-item>
+            longest translated text: {{ sizeOfLongestSourceText }}
+          </md-list-item>
+
           <md-list-item> {{ numberOfDownloads }} downloads </md-list-item>
 
           <md-list-item> {{ numberOfSharedLinks }} shared links </md-list-item>
 
           <md-list-item> {{ numberOfActiveLinks }} active links </md-list-item>
-
-          <md-list-item>
-            size of longest text: {{ sizeOfLongestSourceText }}
-          </md-list-item>
         </md-list>
       </md-card-content>
     </md-card>
@@ -42,7 +45,13 @@ export default {
     "numberOfDownloads",
     "numberOfSharedLinks",
     "numberOfActiveLinks",
-    "sizeOfLongestSourceText" // sizeOfLongestSourceText: state => state.sizeOfLongestSourceText
+    "sizeOfLongestSourceText"
   ])
 };
 </script>
+
+<style>
+.inactive {
+  text-decoration: line-through;
+}
+</style>

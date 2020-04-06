@@ -36,6 +36,8 @@ router.get("/languages", function(req, res) {
  *
  */
 router.post("/text", function(req, res) {
+  // TODO: verify text size vs API's limits (=> split in chunks and merge results)
+
   if (!req.body["target"]) {
     res.json({
       status: "NOK",

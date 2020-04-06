@@ -20,9 +20,14 @@ export default {
         const reader = new FileReader();
 
         reader.onload = e => {
-          this.$store.dispatch("setSourceText", { sourceText: e.target.result });
-        }
+          this.$store.dispatch("setSourceText", {
+            sourceText: e.target.result
+          });
 
+          // Note: to track amount of translated files, we actually need to extend this.$store.state
+          // so that we can verify whether or not the sourceText was reset / modified after file upload
+          this.$store.dispatch("increaseNumberOfUploads");
+        };
 
         reader.onerror = function() {
           // TODO: notify user of the error

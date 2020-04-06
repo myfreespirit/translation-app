@@ -6,7 +6,7 @@
     <form>
       <md-field>
         <md-textarea
-          v-model="sourceText"
+          v-model="source"
           placeholder="Place your text here..."
           required
           md-autogrow
@@ -14,12 +14,6 @@
       </md-field>
 
       <file-selector />
-
-      <md-card>
-        <md-card-content>
-          {{ getTargetText }}
-        </md-card-content>
-      </md-card>
 
       <md-card-actions>
         <md-button
@@ -30,6 +24,12 @@
           >Translate</md-button
         >
       </md-card-actions>
+
+      <md-card>
+        <md-card-content>
+          {{ getTranslatedText }}
+        </md-card-content>
+      </md-card>
     </form>
   </div>
 </template>
@@ -45,12 +45,20 @@ export default {
     "language-selector": LanguageSelector,
     "file-selector": FileSelector
   },
-  data: () => ({
-    sourceText: null
-  }),
   computed: {
     ...mapState(["loading"]),
-    ...mapGetters(["getTargetText"])
+    source: {
+      get() {
+        return this.sourceText;
+      },
+      set(text) {
+        this.$store.dispatch("setSourceText", { sourceText: text });
+      }
+    },
+    ...mapGetters(["getTranslatedText"]),
+    ...mapGetters({
+      sourceText: "getSourceText"
+    })
   },
   methods: {
     ...mapActions(["translate"])

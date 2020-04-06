@@ -13,11 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV === "production") {
   app.use(history());
-  app.use(express.static(path.join(__dirname, "/dist")));
+  app.use(express.static(path.resolve("dist")));
 }
 
 // TODO: description of API with swagger
- app.use("/", indexRouter);
+app.use("/", indexRouter);
 app.use("/api", apiRouter);
 
 module.exports = app;

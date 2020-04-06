@@ -9,6 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// TODO: description of API with swagger
 app.use("/", indexRouter);
 app.use("/api", apiRouter);
 

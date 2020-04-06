@@ -15,6 +15,12 @@ class TranslateService {
 
     return translation[0];
   }
+
+  async getLanguages() {
+    // Lists available translation language with their names in English (the default).
+    const [languages] = await this.googleTranslateService.getLanguages();
+    return languages;
+  }
 }
 
 module.exports.translateService = new TranslateService();

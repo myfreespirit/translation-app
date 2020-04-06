@@ -1,6 +1,8 @@
 <template>
   <!-- TODO: visualize loading effect -->
   <div class="translation-panel align-top">
+    <language-selector />
+
     <form>
       <md-field>
         <md-textarea
@@ -23,7 +25,7 @@
           class="md-primary"
           :disabled="loading"
           @click="
-            translate({ sourceText: sourceText, targetLanguages: ['fr'] })
+            translate({ sourceText: sourceText })
           "
           >Translate</md-button
         >
@@ -33,10 +35,14 @@
 </template>
 
 <script>
+  import LanguageSelector from "./LanguageSelector";
 import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   name: "TranslationPanel",
+  components: {
+    "language-selector": LanguageSelector
+  },
   data: () => ({
     sourceText: null
   }),
